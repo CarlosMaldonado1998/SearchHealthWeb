@@ -1,6 +1,7 @@
 import { Link as MuiLink, Typography } from "@material-ui/core";
 import Link from "next/link";
-import Routes from "../consants/routes";
+import Routes from "../constants/routes";
+import withoutAuth from "../hocs/withoutAuth";
 
 function RecoverPassword() {
   return (
@@ -18,4 +19,4 @@ function RecoverPassword() {
   );
 }
 
-export default RecoverPassword;
+export default withoutAuth(RecoverPassword);

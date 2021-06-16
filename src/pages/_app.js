@@ -1,9 +1,20 @@
-import "../styles/globals.css";
 import { useEffect } from "react";
-import theme from "../styles/theme";
 import { ThemeProvider } from "@material-ui/core";
+import theme from "../styles/theme";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { SnackbarProvider } from "notistack";
+import { AuthProvider } from "../lib/auth";
+import NProgress from "nprogress";
+import Router from "next/router";
+
+// Show a loading state
+Router.events.on("routeChangeStart", (url) => {
+  console.log(`Loading: ${url}`);
+  NProgress.start();
+});
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
+
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     // Remove the server-side injected CSS (Material UI fix).
@@ -16,10 +27,12 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <SnackbarProvider maxSnack={3}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </AuthProvider>
       </SnackbarProvider>
     </>
   );

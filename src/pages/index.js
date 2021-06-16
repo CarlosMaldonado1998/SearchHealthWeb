@@ -2,8 +2,9 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import { Button, Link as MuiLink, Typography } from "@material-ui/core";
-import Routes from "../consants/routes";
+import Routes from "../constants/routes";
 import { useSnackbar } from "notistack";
+import withAuth from "../hocs/withAuth";
 
 function Home() {
   const { enqueueSnackbar } = useSnackbar();
@@ -48,4 +49,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default withAuth(Home);
