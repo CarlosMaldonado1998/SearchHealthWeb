@@ -1,7 +1,7 @@
 import { Link as MuiLink, Typography } from "@material-ui/core";
 import Link from "next/link";
-import Routes from "../consants/routes";
-
+import Routes from "../constants/routes";
+import withoutAuth from "../hocs/withoutAuth";
 function Login() {
   return (
     <>
@@ -14,8 +14,13 @@ function Login() {
           <MuiLink>Ir a Home</MuiLink>
         </Link>
       </Typography>
+      <Typography variant="subtitle1" align="center">
+        <Link href={Routes.RESET_PASSWORD} passHref>
+          <MuiLink>Recuperar Contraseña</MuiLink>
+        </Link>
+      </Typography>
     </>
   );
 }
 
-export default Login;
+export default withoutAuth(Login);
