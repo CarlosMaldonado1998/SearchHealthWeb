@@ -5,10 +5,14 @@ import { Button, Link as MuiLink, Typography } from "@material-ui/core";
 import Routes from "../constants/routes";
 import { useSnackbar } from "notistack";
 import withAuth from "../hocs/withAuth";
-
+import { useAuth } from "../lib/auth";
 function Home() {
+  const { logout } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
 
+  const handleLogout = async () => {
+    logout();
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -17,33 +21,17 @@ function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Typography align="center">Bienvenido a Search Health</Typography>
       <Typography variant="subtitle1" align="center">
-        Si se ha registrado
-        <Link href={Routes.LOGIN} passHref>
-          <MuiLink>Iniciar Sesión</MuiLink>
-        </Link>
-      </Typography>
-      <Typography variant="subtitle1" align="center">
-        Olvidaste tu contraseña
-        <Link href={Routes.RESET_PASSWORD} passHref>
-          <MuiLink>Recuperar contraseña</MuiLink>
-        </Link>
+        Menú en construcción
       </Typography>
 
       <Button
         variant="contained"
         color="secondary"
-        onClick={() => {
-          enqueueSnackbar("Salio el mensaje", {
-            variant: "success",
-            anchorOrigin: {
-              horizontal: "center",
-              vertical: "top",
-            },
-          });
-        }}
+        onClick={() => handleLogout()}
       >
-        Mostrar notificación
+        Cerrar sesión
       </Button>
     </div>
   );
