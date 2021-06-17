@@ -61,8 +61,6 @@ function useAuthProvider() {
   }
 
   async function login(email, password) {
-    console.log(email);
-    console.log(password);
     try {
       await auth.signInWithEmailAndPassword(email, password);
       return true;
