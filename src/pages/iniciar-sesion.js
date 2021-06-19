@@ -1,13 +1,11 @@
 import {
   Button,
-  Link as MuiLink,
   TextField,
   Typography,
   Grid,
   Container,
   CssBaseline,
   Paper,
-  Box,
 } from "@material-ui/core";
 import Link from "next/link";
 import Routes from "../constants/routes";
@@ -94,15 +92,10 @@ function Login() {
           direction="column"
           alignItems="center"
           justify="center"
-          style={{ minHeight: "100vh" }}
+          style={{ minHeight: "70vh" }}
         >
           <Paper elevation={3} style={styles.paper}>
-            <Grid
-              container
-              direction="column"
-              justify="center"
-              alignItems="center"
-            >
+            <Grid>
               <Typography variant="h4" align="center">
                 <strong>Inicio de Sesión</strong>
               </Typography>
@@ -158,7 +151,7 @@ function Login() {
               </form>
               <Typography align="center">
                 <Link href={Routes.RESET_PASSWORD} passHref>
-                  <MuiLink>Recuperar Contraseña</MuiLink>
+                  <Button color="primary">Recuperar Contraseña</Button>
                 </Link>
               </Typography>
             </Grid>

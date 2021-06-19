@@ -94,8 +94,10 @@ function useAuthProvider() {
         console.log("SESIÓN ACTIVA", userAuthData);
         const userDoc = await db.ref(`users/${userAuthData.uid}/`);
         console.log("UserData", userDoc);
-        //poner el correcto
-        handleUser(userDoc);
+        userDoc.on("value", (snapshot) => {
+          const data = snapshot.val();
+          handleUser(data);
+        });
       } else {
         console.log("SIN SESIÓN", userAuthData);
         handleUser(false);
