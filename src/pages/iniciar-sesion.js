@@ -1,13 +1,11 @@
 import {
   Button,
-  Link as MuiLink,
   TextField,
   Typography,
   Grid,
   Container,
   CssBaseline,
   Paper,
-  Box,
 } from "@material-ui/core";
 import Link from "next/link";
 import Routes from "../constants/routes";
@@ -20,6 +18,7 @@ import * as yup from "yup";
 import translateMessage from "../utils/translateMessage";
 import { useAuth } from "../lib/auth";
 import { useSnackbar } from "notistack";
+import { useRouter } from "next/router";
 
 const schema = yup.object().shape({
   email: yup
@@ -57,6 +56,7 @@ const styles = {
 function Login() {
   const { login } = useAuth();
   const classes = useStyles();
+  const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
@@ -64,14 +64,16 @@ function Login() {
 
   const onSubmit = async (data) => {
     try {
-      await login(data.email, data.password);
-      enqueueSnackbar("Acceso exitoso", {
-        variant: "success",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
-        },
-      });
+      await login(data.email, data.password).then(
+        enqueueSnackbar("Acceso exitoso", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        }),
+        router.push(Routes.HOME)
+      );
     } catch (error) {
       console.log(error.code);
       enqueueSnackbar(translateMessage(error.code), {
@@ -94,15 +96,10 @@ function Login() {
           direction="column"
           alignItems="center"
           justify="center"
-          style={{ minHeight: "100vh" }}
+          style={{ minHeight: "70vh" }}
         >
           <Paper elevation={3} style={styles.paper}>
-            <Grid
-              container
-              direction="column"
-              justify="center"
-              alignItems="center"
-            >
+            <Grid>
               <Typography variant="h4" align="center">
                 <strong>Inicio de Sesión</strong>
               </Typography>
@@ -158,7 +155,7 @@ function Login() {
               </form>
               <Typography align="center">
                 <Link href={Routes.RESET_PASSWORD} passHref>
-                  <MuiLink>Recuperar Contraseña</MuiLink>
+                  <Button color="primary">Recuperar Contraseña</Button>
                 </Link>
               </Typography>
             </Grid>
