@@ -3,10 +3,9 @@ import { Container, Grid, ThemeProvider } from "@material-ui/core";
 import theme from "../styles/theme";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { SnackbarProvider } from "notistack";
-import { AuthProvider, useAuth } from "../lib/auth";
+import { AuthProvider } from "../lib/auth";
 import NProgress from "nprogress";
 import Router from "next/router";
-import Head from "next/head";
 import styles from "../styles/App.module.css";
 import MainMenu from "../components/MainMenu";
 

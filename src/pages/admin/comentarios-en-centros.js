@@ -1,6 +1,5 @@
 import withAuth from "../../hocs/withAuth";
 import Head from "next/head";
-
 function Comments() {
   return (
     <>

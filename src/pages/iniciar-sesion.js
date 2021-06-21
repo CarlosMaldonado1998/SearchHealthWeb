@@ -18,6 +18,7 @@ import * as yup from "yup";
 import translateMessage from "../utils/translateMessage";
 import { useAuth } from "../lib/auth";
 import { useSnackbar } from "notistack";
+import { useRouter } from "next/router";
 
 const schema = yup.object().shape({
   email: yup
@@ -55,6 +56,7 @@ const styles = {
 function Login() {
   const { login } = useAuth();
   const classes = useStyles();
+  const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
@@ -62,14 +64,16 @@ function Login() {
 
   const onSubmit = async (data) => {
     try {
-      await login(data.email, data.password);
-      enqueueSnackbar("Acceso exitoso", {
-        variant: "success",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
-        },
-      });
+      await login(data.email, data.password).then(
+        enqueueSnackbar("Acceso exitoso", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        }),
+        router.push(Routes.HOME)
+      );
     } catch (error) {
       console.log(error.code);
       enqueueSnackbar(translateMessage(error.code), {
