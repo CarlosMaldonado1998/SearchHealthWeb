@@ -122,7 +122,7 @@ const DeleteCenter = (props) => {
     return (
         <>
                 <Box display="flex" justifyContent="center" m={1} p={1}>
-                    <h3>¿Está seguro que desea eliminar este camión?</h3>
+                    <h3>¿Está seguro que desea eliminar este centro?</h3>
                 </Box>
             <form
                 className={classes.root}
@@ -142,7 +142,7 @@ const DeleteCenter = (props) => {
                         color="primary"
                         className={classes.submit}
                     >
-                        Sí
+                        Aceptar
                     </Button>
                     <Button
                         onClick={props.onCancel}
