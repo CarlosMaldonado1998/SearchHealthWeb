@@ -13,16 +13,22 @@ const theme = createMuiTheme({
   palette: {
     type: "light",
     primary: {
-      main: "#7bc2ca",
+      main: "#7BC2CA",
     },
     secondary: {
-      main: "#acca7b",
+      main: "#ACCA7B",
+    },
+    tertiary: {
+      main: "#D7A588",
+    },
+    cancel: {
+      main: "#819EA6",
     },
     error: {
       main: red.A400,
     },
     background: {
-      default: "#edebe6",
+      default: "#EDEBE6",
     },
   },
   overrides: {
