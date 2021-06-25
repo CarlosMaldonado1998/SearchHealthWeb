@@ -60,7 +60,10 @@ function Register() {
         <Grid container direction="row" justify="center" alignItems="center">
           <h2>Agregar Centro Médico</h2>
         </Grid>
-        <FormMedicalCenter onHandleSubmitAction={handleAddMedicalCenter} />
+        <FormMedicalCenter
+          data={null}
+          onHandleSubmitAction={handleAddMedicalCenter}
+        />
       </Grid>
     </>
   );

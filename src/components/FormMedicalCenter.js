@@ -28,10 +28,12 @@ import * as yup from "yup";
 import clsx from "clsx";
 const moment = require("moment");
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import specialties from "../services/specialties";
 import IconButton from "@material-ui/core/IconButton";
 import { PhotoCamera } from "@material-ui/icons";
+import Image from "next/image";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -203,6 +205,23 @@ const FormMedicalCenter = (props) => {
     }
   };
 
+  useEffect(() => {
+    if (props.data !== null) {
+      setSelectedSpecialties(props.data.specialties);
+      let listDays = props.data.days.split(",");
+      for (let i = 0; i < listDays.length; i++) {
+        if (listDays[i] !== "") {
+          handleSetDays(listDays[i]).then((r) => console.log(r));
+        } else {
+        }
+      }
+    }
+  }, []);
+  console.log(state);
+
+  const handleSetDays = async (value) => {
+    await setState({ ...state, [value]: true });
+  };
   const onSubmit = (data) => {
     let day = "";
     for (let $i in state) {
@@ -235,11 +254,37 @@ const FormMedicalCenter = (props) => {
       start_time: data.start_time,
       type: data.type,
     });
-    if (selectedSpecialties.length > 0 && updateFile !== null && day !== "") {
-      props.onHandleSubmitAction(...medicalCenterInfo, updateFile);
-      setCheckValues(false);
+
+    //Elegir si se actualiza o se crea
+    if (props.data) {
+      if (selectedSpecialties.length > 0 && day !== "") {
+        if (updateFile !== null) {
+          props.onHandleSubmitAction(
+            props.data.key,
+            ...medicalCenterInfo,
+            updateFile,
+            true
+          );
+          setCheckValues(false);
+        } else {
+          props.onHandleSubmitAction(
+            props.data.key,
+            ...medicalCenterInfo,
+            updateFile,
+            false
+          );
+          setCheckValues(false);
+        }
+      } else {
+        setCheckValues(true);
+      }
     } else {
-      setCheckValues(true);
+      if (selectedSpecialties.length > 0 && updateFile !== null && day !== "") {
+        props.onHandleSubmitAction(...medicalCenterInfo, updateFile);
+        setCheckValues(false);
+      } else {
+        setCheckValues(true);
+      }
     }
   };
 
@@ -281,6 +326,7 @@ const FormMedicalCenter = (props) => {
               id="name"
               name="name"
               label="Nombre del centro médico"
+              defaultValue={props.data ? props.data.name : ""}
               variant="outlined"
               required
               inputRef={register}
@@ -294,7 +340,7 @@ const FormMedicalCenter = (props) => {
             <h4>Tipo:</h4>
             <FormControl component="fieldset">
               <RadioGroup
-                defaultValue={"Hospital"}
+                defaultValue={props.data ? props.data.type : "Hospital"}
                 aria-label="gender"
                 name="type"
               >
@@ -336,7 +382,7 @@ const FormMedicalCenter = (props) => {
                     name="start_time"
                     label="Hora de inicio"
                     type="time"
-                    defaultValue="07:00"
+                    defaultValue={props.data ? props.data.start_time : "07:00"}
                     required
                     inputRef={register}
                     color="secondary"
@@ -358,7 +404,7 @@ const FormMedicalCenter = (props) => {
                     name="end_time"
                     label="Hora de fin"
                     type="time"
-                    defaultValue="16:00"
+                    defaultValue={props.data ? props.data.end_time : "16:00"}
                     required
                     inputRef={register}
                     color="secondary"
@@ -460,7 +506,7 @@ const FormMedicalCenter = (props) => {
           <Grid item xs={8}>
             <FormControl component="fieldset">
               <RadioGroup
-                defaultValue={"Norte"}
+                defaultValue={props.data ? props.data.sector : "Norte"}
                 aria-label="gender"
                 name="sector"
               >
@@ -495,6 +541,7 @@ const FormMedicalCenter = (props) => {
               label="Número de teléfono"
               variant="outlined"
               required
+              defaultValue={props.data ? props.data.contacts.telephone : ""}
               inputRef={register}
               color="secondary"
               margin="normal"
@@ -509,6 +556,7 @@ const FormMedicalCenter = (props) => {
               name="mobile"
               label="Número de teléfono celular"
               variant="outlined"
+              defaultValue={props.data ? props.data.contacts.mobile : ""}
               inputRef={register}
               color="secondary"
               margin="normal"
@@ -526,6 +574,7 @@ const FormMedicalCenter = (props) => {
                   label="Dirección"
                   variant="outlined"
                   required
+                  defaultValue={props.data ? props.data.location.address : ""}
                   inputRef={register}
                   color="secondary"
                   margin="normal"
@@ -540,6 +589,7 @@ const FormMedicalCenter = (props) => {
                   label="Latitud"
                   variant="outlined"
                   required
+                  defaultValue={props.data ? props.data.location.latitude : ""}
                   inputRef={register}
                   color="secondary"
                   margin="normal"
@@ -554,6 +604,7 @@ const FormMedicalCenter = (props) => {
                   label="Longitud"
                   variant="outlined"
                   required
+                  defaultValue={props.data ? props.data.location.longitude : ""}
                   inputRef={register}
                   color="secondary"
                   margin="normal"
@@ -573,6 +624,7 @@ const FormMedicalCenter = (props) => {
                 label="Correo electrónico"
                 variant="outlined"
                 required
+                defaultValue={props.data ? props.data.email : ""}
                 inputRef={register}
                 color="secondary"
                 margin="normal"
@@ -587,6 +639,7 @@ const FormMedicalCenter = (props) => {
                 label="Sitio web (Opcional)"
                 variant="outlined"
                 inputRef={register}
+                defaultValue={props.data ? props.data.social_media.website : ""}
                 color="secondary"
                 margin="normal"
                 error={!!errors.website}
@@ -599,6 +652,9 @@ const FormMedicalCenter = (props) => {
                 name="facebook"
                 label="Facebook (Opcional)"
                 variant="outlined"
+                defaultValue={
+                  props.data ? props.data.social_media.facebook : ""
+                }
                 inputRef={register}
                 color="secondary"
                 margin="normal"
@@ -613,6 +669,9 @@ const FormMedicalCenter = (props) => {
                 label="Instagram (Opcional)"
                 variant="outlined"
                 inputRef={register}
+                defaultValue={
+                  props.data ? props.data.social_media.instagram : ""
+                }
                 color="secondary"
                 margin="normal"
                 error={!!errors.instagram}
@@ -621,7 +680,7 @@ const FormMedicalCenter = (props) => {
             </Grid>
           </div>
 
-          <h4>Subir una imágen del centro médico</h4>
+          <h4>Subir una imagen del centro médico</h4>
           <input
             type="file"
             name="files"
@@ -631,6 +690,30 @@ const FormMedicalCenter = (props) => {
             }}
           />
 
+          {props.data ? (
+            <Grid
+              container
+              direction="column"
+              justify="flex-start"
+              alignItems="flex-start"
+              m={2}
+              p={2}
+            >
+              <Typography color="primary">
+                {" "}
+                Para actualizar. Archivos tipo imagen*
+              </Typography>
+              <Typography>Imagen cargada en el sistema:</Typography>
+              <img
+                src={props.data.photo}
+                alt="Picture of the author"
+                width={100}
+                height={100}
+              />
+            </Grid>
+          ) : (
+            <div />
+          )}
           {dataSpecialties ? (
             <>
               <h4>Seleccione las especialidades: </h4>
@@ -675,22 +758,51 @@ const FormMedicalCenter = (props) => {
             justify="center"
             alignItems="center"
           >
-            {checkValues ? (
-              <Typography>
-                Ingrese todos los datos requeridos, incluido especialidades y la
-                imágen(con formato de imágen).
-              </Typography>
+            {props.data ? (
+              <>
+                {checkValues ? (
+                  <Typography>
+                    Ingrese todos los datos requeridos. Incluido especialidades.
+                  </Typography>
+                ) : (
+                  <div />
+                )}
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="secondary"
+                  className={classes.submit}
+                >
+                  Guardar cambios
+                </Button>
+                <Button
+                  onClick={props.onCancel}
+                  variant="contained"
+                  className={classes.button}
+                >
+                  Cancelar
+                </Button>
+              </>
             ) : (
-              <div />
+              <>
+                {checkValues ? (
+                  <Typography>
+                    Ingrese todos los datos requeridos, incluido especialidades
+                    y la imagen(con formato de imagen).
+                  </Typography>
+                ) : (
+                  <div />
+                )}
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Añadir Centro Médico
+                </Button>
+              </>
             )}
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Añadir Centro Médico
-            </Button>
           </Grid>
         </form>
       </Grid>

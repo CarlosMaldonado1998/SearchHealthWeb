@@ -18,6 +18,7 @@ import {
   Divider,
   Button,
   TablePagination,
+  Grid,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
@@ -30,9 +31,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DeleteCenter from "../../components/DeleteCenter";
 import { useRouter } from "next/router";
 import Routes from "../../constants/routes";
-
-
-
+import medicalCenters from "../../services/medicalCenters";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -51,14 +50,6 @@ const StyledTableRow = withStyles((theme) => ({
     },
   },
 }))(TableRow);
-
-const styles = {
-  title: {
-    textAlign: "center",
-    color: "white",
-    textShadow: "2px 2px #262626",
-  },
-};
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -125,13 +116,11 @@ const MedicalCenter = () => {
   const [dataListCenters, setDataListCenters] = useState([]);
   const [dataSearchCenters, setDataSearchCenters] = useState([]);
   const [wordSearch, setWordSearch] = useState("");
-  const [valueIdCenter, setValueIdCenter] = useState(null);
-  const [isDialogsVisibleEditCenter, setIsDialogsVisibleEditCenter] = useState(
-      false
-  );
-  const [isDialogsVisibleDeleteCenter, setIsDialogsVisibleDeleteCenter] = useState(
-      false
-  );
+  const [centerInfo, setCenterInfo] = useState(null);
+  const [isDialogsVisibleEditCenter, setIsDialogsVisibleEditCenter] =
+    useState(false);
+  const [isDialogsVisibleDeleteCenter, setIsDialogsVisibleDeleteCenter] =
+    useState(false);
   const handleClickDeleteSearchCenter = () => {
     setWordSearch("");
   };
@@ -142,224 +131,215 @@ const MedicalCenter = () => {
   const handleClickOpenEditCenter = (id) => {
     setIsDialogsVisibleEditCenter(true);
     setIsDialogsVisibleDeleteCenter(false);
-    setValueIdCenter(id);
+    setCenterInfo(id);
   };
   const handleClickOpenDeleteCenter = (id) => {
     setIsDialogsVisibleEditCenter(false);
     setIsDialogsVisibleDeleteCenter(true);
-    setValueIdCenter(id);
+    setCenterInfo(id);
   };
   const handleClose = () => {
     setIsDialogsVisibleEditCenter(false);
     setIsDialogsVisibleDeleteCenter(false);
-
   };
-  useEffect( () => {
-    const getDataListCenters  = async () => {
-      FIREBASE.db.ref('medicalCenters').on('value', (snapshot) => {
-        console.log('snapshot', snapshot.val());
+  useEffect(() => {
+    const getDataListCenters = async () => {
+      await medicalCenters.getAll().on("value", (snapshot) => {
         const listCentersData = [];
-        snapshot.forEach( (data) => {
+        snapshot.forEach((data) => {
           const centers = data.val();
-          const centersId = data.key;
           listCentersData.push({
-            key: centersId,
-            name: centers.name,
-            sector: centers.sector,
-            type: centers.type,
+            key: data.key,
+            ...centers,
           });
         });
         setDataListCenters(listCentersData);
       });
     };
     getDataListCenters();
+  }, []);
 
+  useEffect(() => {
     if (dataListCenters) {
-      setDataSearchCenters([]);
       const listCenterData = [];
       dataListCenters.map((center) => {
         center.name.toUpperCase().includes(wordSearch.toUpperCase())
-            ? listCenterData.push(center)
-            : "";
+          ? listCenterData.push(center)
+          : "";
       });
       setDataSearchCenters(listCenterData);
     }
   }, [wordSearch]);
 
   return (
-      <>
-        <h1 style={styles.title}>Gestión de centros</h1>
-        <Box display="flex" justifyContent="flex-end" m={1} p={1}>
-          <Button
-              variant="outlined"
-              size="large"
-              className={classes.margin}
-              endIcon={<PostAddIcon />}
-              onClick={() => router.push(Routes.REGISTER_MEDICAL_CENTER)}
-          >
-            Agregar Centro
-          </Button>
-        </Box>
-        <Box display="flex" justifyContent="flex" m={1} p={1}>
-          <form className={classes.root} noValidate autoComplete="off">
-            <Paper className={classes.root3}>
-              <InputBase
-                  id="wordToSearch"
-                  name="wordToSearch"
-                  value={wordSearch}
-                  className={classes.input}
-                  placeholder="Ingrese el nombre del centro"
-                  inputRef={register}
-                  onChange={handleChange}
-              />
-              <IconButton
-                  onClick={handleClickDeleteSearchCenter}
-                  className={classes.iconButton}
-                  aria-label="search"
-              >
-                <SearchIcon />
-              </IconButton>
-              <Divider className={classes.divider} orientation="vertical" />
-            </Paper>
-          </form>
-        </Box>
-        {wordSearch !== ""
-            ? ( <div>
-                  {dataSearchCenters ? (
-                      <div>
-                        <TableContainer component={Paper}>
-                          <Table aria-label="customized table">
-                            <TableHead>
-                              <TableRow>
-                                <StyledTableCell align="center">Nombre</StyledTableCell>
-                                <StyledTableCell align="center">
-                                  Sector
-                                </StyledTableCell>
-                                <StyledTableCell align="center">Tipo</StyledTableCell>
-                                <StyledTableCell align="center">Opción</StyledTableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              {dataSearchCenters.map((center) => (
-                                  <StyledTableRow key={center.id}>
-                                    <StyledTableCell align="center">
-                                      {center.name}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                      {center.sector}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                      {center.type}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                      <IconButton
-                                          color="primary"
-                                          aria-label="upload picture"
-                                          component="span"
-                                          onClick={() => handleClickOpenEditCenter(center.key)}
-                                      >
-                                        <BorderColorIcon />
-                                      </IconButton>
-                                      <IconButton
-                                          color="dark"
-                                          aria-label="upload picture"
-                                          component="span"
-                                      >
-                                        <DeleteIcon
-                                        />
-                                      </IconButton>
-                                    </StyledTableCell>
-                                  </StyledTableRow>
-                              ))}
-                            </TableBody>
-                          </Table>
-                        </TableContainer>
-                      </div>
-                  ) : (
-                      <Loading />
-                  )}
-                </div>
-            ) : (
-                <div>
-                  {dataListCenters ? (
-                      <div>
-                        <TableContainer component={Paper}>
-                          <Table aria-label="customized table">
-                            <TableHead>
-                              <TableRow>
-                                <StyledTableCell align="center">Nombre</StyledTableCell>
-                                <StyledTableCell align="center">
-                                  Sector
-                                </StyledTableCell>
-                                <StyledTableCell align="center">Tipo</StyledTableCell>
-                                <StyledTableCell align="center">Opción</StyledTableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              {dataListCenters.map((center) => (
-                                  <StyledTableRow key={center.id}>
-                                    <StyledTableCell align="center">
-                                      {center.name}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                      {center.sector}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                      {center.type}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                      <IconButton
-                                          color="primary"
-                                          aria-label="upload picture"
-                                          component="span"
-                                          onClick={() => handleClickOpenEditCenter(center.key)}
-                                      >
-                                        <BorderColorIcon />
-                                      </IconButton>
-
-                                      <IconButton
-                                          color="dark"
-                                          aria-label="upload picture"
-                                          component="span"
-                                          onClick={() => handleClickOpenDeleteCenter(center.key)}
-                                      >
-                                        <DeleteIcon
-                                        />
-                                      </IconButton>
-                                    </StyledTableCell>
-                                  </StyledTableRow>
-                              ))}
-                            </TableBody>
-                          </Table>
-                        </TableContainer>
-                      </div>
-                  ) : (
-                      <Loading />
-                  )}
-                </div>
-            )}
-        <Dialog
-            open={isDialogsVisibleEditCenter}
-            onClose={handleClose}
-            aria-labelledby="form-dialog-title"
-            disableBackdropClick={true}
+    <>
+      <Grid container direction="row" justify="center" alignItems="center">
+        <h2>Gestión de centros</h2>
+      </Grid>
+      <Box display="flex" justifyContent="flex-end" m={1} p={1}>
+        <Button
+          variant="outlined"
+          size="large"
+          className={classes.margin}
+          color="primary"
+          endIcon={<PostAddIcon />}
+          onClick={() => router.push(Routes.REGISTER_MEDICAL_CENTER)}
         >
-          <DialogContent>
-            <EditCenter id={valueIdCenter} onCancel={handleClose} />
-          </DialogContent>
-        </Dialog>
-        <Dialog
-            open={isDialogsVisibleDeleteCenter}
-            onClose={handleClose}
-            aria-labelledby="form-dialog-title"
-            disableBackdropClick={true}
-        >
-          <DialogContent>
-            <DeleteCenter id={valueIdCenter} onCancel={handleClose} />
-          </DialogContent>
-        </Dialog>
+          Agregar Centro
+        </Button>
+      </Box>
+      <Box display="flex" justifyContent="flex" m={1} p={1}>
+        <form noValidate autoComplete="off">
+          <Paper className={classes.root3}>
+            <InputBase
+              id="wordToSearch"
+              name="wordToSearch"
+              value={wordSearch}
+              className={classes.input}
+              placeholder="Ingrese el nombre del centro"
+              inputRef={register}
+              onChange={handleChange}
+            />
+            <IconButton
+              onClick={handleClickDeleteSearchCenter}
+              className={classes.iconButton}
+              aria-label="search"
+            >
+              <SearchIcon />
+            </IconButton>
+            <Divider className={classes.divider} orientation="vertical" />
+          </Paper>
+        </form>
+      </Box>
+      {wordSearch !== "" ? (
+        <div>
+          {dataSearchCenters ? (
+            <div>
+              <TableContainer component={Paper}>
+                <Table aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell align="start">Nombre</StyledTableCell>
+                      <StyledTableCell align="center">Sector</StyledTableCell>
+                      <StyledTableCell align="center">Tipo</StyledTableCell>
+                      <StyledTableCell align="center">Opción</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {dataSearchCenters.map((center) => (
+                      <StyledTableRow key={center.key + "filter"}>
+                        <StyledTableCell align="start">
+                          {center.name}
+                        </StyledTableCell>
+                        <StyledTableCell align="center">
+                          {center.sector}
+                        </StyledTableCell>
+                        <StyledTableCell align="center">
+                          {center.type}
+                        </StyledTableCell>
+                        <StyledTableCell align="center">
+                          <IconButton
+                            color="primary"
+                            aria-label="upload picture"
+                            component="span"
+                            onClick={() => handleClickOpenEditCenter(center)}
+                          >
+                            <BorderColorIcon />
+                          </IconButton>
+                          <IconButton
+                            aria-label="upload picture"
+                            component="span"
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          ) : (
+            <Loading />
+          )}
+        </div>
+      ) : (
+        <div>
+          {dataListCenters ? (
+            <div>
+              <TableContainer component={Paper}>
+                <Table aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell align="start">Nombre</StyledTableCell>
+                      <StyledTableCell align="center">Sector</StyledTableCell>
+                      <StyledTableCell align="center">Tipo</StyledTableCell>
+                      <StyledTableCell align="center">Opción</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {dataListCenters.map((center) => (
+                      <StyledTableRow key={center.key}>
+                        <StyledTableCell align="start">
+                          {center.name}
+                        </StyledTableCell>
+                        <StyledTableCell align="center">
+                          {center.sector}
+                        </StyledTableCell>
+                        <StyledTableCell align="center">
+                          {center.type}
+                        </StyledTableCell>
+                        <StyledTableCell align="center">
+                          <IconButton
+                            color="primary"
+                            aria-label="upload picture"
+                            component="span"
+                            onClick={() => handleClickOpenEditCenter(center)}
+                          >
+                            <BorderColorIcon />
+                          </IconButton>
 
-      </>
+                          <IconButton
+                            aria-label="upload picture"
+                            component="span"
+                            onClick={() => handleClickOpenDeleteCenter(center)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          ) : (
+            <Loading />
+          )}
+        </div>
+      )}
+      <Dialog
+        open={isDialogsVisibleEditCenter}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+        disableBackdropClick={true}
+        maxWidth={500}
+      >
+        <DialogContent>
+          <EditCenter data={centerInfo} onCancel={handleClose} />
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        open={isDialogsVisibleDeleteCenter}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+        disableBackdropClick={true}
+      >
+        <DialogContent>
+          <DeleteCenter data={centerInfo} onCancel={handleClose} />
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 export default withAuth(MedicalCenter);
