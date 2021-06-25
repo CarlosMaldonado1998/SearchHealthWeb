@@ -100,11 +100,11 @@ const schema = yup.object().shape({
   telephone: yup
     .string()
     .required("Ingrese el número de teléfono")
-    .matches(phoneRegExp, "Ingrese solo valores numéricos."),
+    .matches(phoneRegExp, "Ingrese mínimo 6 valores númericos."),
   mobile: yup
     .string()
     .required("Ingrese el número de teléfono celular")
-    .matches(phoneRegExp, "Ingrese solo valores numpericos."),
+    .matches(phoneRegExp, "Ingrese mínimo 6 valores númericos."),
   start_time: yup
     .string()
     .required("Seleccione la hora de inicio")
@@ -192,10 +192,8 @@ const FormMedicalCenter = (props) => {
   const [updateFile, setUpdateFile] = useState(null);
   const [checkValues, setCheckValues] = useState(false);
   const handleAddFile = (e) => {
-    console.log("archivo", e);
     if (e !== undefined) {
       if (e.type.includes("image/")) {
-        console.log("hay archivo");
         setUpdateFile(e);
       } else {
         setUpdateFile(null);
@@ -217,7 +215,6 @@ const FormMedicalCenter = (props) => {
       }
     }
   }, []);
-  console.log(state);
 
   const handleSetDays = async (value) => {
     await setState({ ...state, [value]: true });
