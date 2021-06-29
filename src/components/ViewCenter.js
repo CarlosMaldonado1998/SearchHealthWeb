@@ -2,8 +2,6 @@ import Loading from "./Loading";
 import {
   Button,
   Card,
-  CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
   Grid,

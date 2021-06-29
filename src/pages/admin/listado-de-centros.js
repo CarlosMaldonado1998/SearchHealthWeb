@@ -159,6 +159,7 @@ const MedicalCenter = () => {
     getDataListCenters();
   }, []);
 
+  console.log(dataListCenters);
   useEffect(() => {
     if (dataListCenters) {
       const listCenterData = [];
