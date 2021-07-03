@@ -9,6 +9,7 @@ function Home() {
       </Head>
       <div>Home</div>
       <div>Bienvenido Administrador</div>
+      <h2>Sección informativa en construcción</h2>
     </>
   );
 }

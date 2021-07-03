@@ -2,7 +2,6 @@ import {
   FormControl,
   Grid,
   TextField,
-  InputBase,
   RadioGroup,
   Box,
   FormControlLabel,
@@ -10,14 +9,11 @@ import {
   Button,
   Typography,
   FormLabel,
-  FormHelperText,
   Input,
   FormGroup,
   Checkbox,
   MenuItem,
   Select,
-  InputLabel,
-  ListItemText,
   Chip,
 } from "@material-ui/core";
 
@@ -33,6 +29,7 @@ import specialties from "../services/specialties";
 import IconButton from "@material-ui/core/IconButton";
 import { PhotoCamera } from "@material-ui/icons";
 import Image from "next/image";
+import useSpecialties from "../hooks/useSpecialties";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -170,7 +167,7 @@ const MenuProps = {
 
 const FormMedicalCenter = (props) => {
   const classes = useStyles();
-  const [dataSpecialties, setDataSpecialties] = useState([]);
+  const [dataSpecialties] = useSpecialties();
   const { register, handleSubmit, control, errors } = useForm({
     resolver: yupResolver(schema),
   });
@@ -209,7 +206,7 @@ const FormMedicalCenter = (props) => {
       let listDays = props.data.days.split(",");
       for (let i = 0; i < listDays.length; i++) {
         if (listDays[i] !== "") {
-          handleSetDays(listDays[i]).then((r) => console.log(r));
+          handleSetDays(listDays[i]);
         } else {
         }
       }
@@ -285,22 +282,6 @@ const FormMedicalCenter = (props) => {
     }
   };
 
-  useEffect(() => {
-    const getDataSpecialties = async () => {
-      await specialties
-        .getAll()
-        .once("value")
-        .then((snapshot) => {
-          const dataList = [];
-          snapshot.forEach((data) => {
-            dataList.push({ id: data.key, name: data.val() });
-          });
-          setDataSpecialties(dataList);
-        });
-    };
-    getDataSpecialties();
-  }, []);
-
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
@@ -309,6 +290,7 @@ const FormMedicalCenter = (props) => {
     setSelectedSpecialties(event.target.value);
   };
 
+  console.log("especialties", typeof selectedSpecialties);
   return (
     <>
       <Grid container>

@@ -3,42 +3,22 @@ import {
   Avatar,
   Divider,
   Grid,
-  List,
   ListItem,
   ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
-  makeStyles,
   Typography,
 } from "@material-ui/core";
-import FolderIcon from "@material-ui/icons/Folder";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import React, { useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import DeleteCenter from "./DeleteCenter";
 import DeleteComment from "./DeleteComment";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    maxWidth: 752,
-  },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  title: {
-    margin: theme.spacing(4, 0, 2),
-  },
-  inline: {
-    display: "inline",
-  },
-}));
-
-const Comments = ({ comment, key }) => {
+const Comments = ({ comment, dataCenterID }) => {
   console.log("comment", comment);
-  console.log("key", key);
+  console.log("key", dataCenterID);
   const [isDialogsVisibleDeleteCenter, setIsDialogsVisibleDeleteCenter] =
     useState(false);
 
@@ -91,7 +71,11 @@ const Comments = ({ comment, key }) => {
         disableBackdropClick={true}
       >
         <DialogContent>
-          <DeleteComment key={key} comment={comment} onCancel={handleClose} />
+          <DeleteComment
+            dataCenterID={dataCenterID}
+            comment={comment}
+            onCancel={handleClose}
+          />
         </DialogContent>
       </Dialog>
     </>

@@ -12,4 +12,7 @@ export default Centers = {
   addInfoCenter: (id) => {
     return db.ref("medicalCenters/" + id);
   },
+  getCenterByID: (id) => {
+    return db.ref("medicalCenters/" + id);
+  },
 };

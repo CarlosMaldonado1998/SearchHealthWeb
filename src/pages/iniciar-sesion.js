@@ -54,7 +54,7 @@ const styles = {
 };
 
 function Login() {
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const classes = useStyles();
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
@@ -64,16 +64,7 @@ function Login() {
 
   const onSubmit = async (data) => {
     try {
-      await login(data.email, data.password).then(
-        enqueueSnackbar("Acceso exitoso", {
-          variant: "success",
-          anchorOrigin: {
-            vertical: "top",
-            horizontal: "center",
-          },
-        }),
-        router.push(Routes.HOME)
-      );
+      await login(data.email, data.password).then(router.push(Routes.ADMIN));
     } catch (error) {
       console.log(error.code);
       enqueueSnackbar(translateMessage(error.code), {
