@@ -9,12 +9,12 @@ import {
   Paper,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import users from "../../services/users";
 import TableUsers from "../../components/TableUsers";
 import Loading from "../../components/Loading";
 import SearchIcon from "@material-ui/icons/Search";
 import { makeStyles } from "@material-ui/core/styles";
 import { useForm } from "react-hook-form";
+import useUsers from "../../hooks/useUsers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,32 +38,15 @@ const useStyles = makeStyles((theme) => ({
 
 function Users() {
   const classes = useStyles();
-  const [dataListUsers, setDataListUsers] = useState([]);
+  const [dataUsers] = useUsers();
   const [dataSearchUsers, setDataSearchUsers] = useState([]);
   const [wordSearch, setWordSearch] = useState("");
   const { register } = useForm();
 
   useEffect(() => {
-    const getDataListUsers = async () => {
-      await users.getAll().on("value", (snapshot) => {
-        const listUser = [];
-        snapshot.forEach((data) => {
-          const centers = data.val();
-          listUser.push({
-            key: data.key,
-            ...centers,
-          });
-        });
-        setDataListUsers(listUser);
-      });
-    };
-    getDataListUsers();
-  }, []);
-
-  useEffect(() => {
-    if (dataListUsers) {
+    if (dataUsers) {
       const list = [];
-      dataListUsers.map((center) => {
+      dataUsers.map((center) => {
         center.name.toUpperCase().includes(wordSearch.toUpperCase())
           ? list.push(center)
           : "";
@@ -118,8 +101,8 @@ function Users() {
             <Loading />
           )}
         </div>
-      ) : dataListUsers ? (
-        <TableUsers dataList={dataListUsers} />
+      ) : dataUsers ? (
+        <TableUsers dataList={dataUsers} />
       ) : (
         <div />
       )}

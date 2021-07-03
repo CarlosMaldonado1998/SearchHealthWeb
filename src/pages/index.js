@@ -1,8 +1,6 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import Link from "next/link";
 import { Button, Drawer, Link as MuiLink, Typography } from "@material-ui/core";
-import withAuth from "../hocs/withAuth";
+import withoutAuth from "../hocs/withAuth";
 import { useAuth } from "../lib/auth";
 import { useRouter } from "next/router";
 
@@ -22,4 +20,4 @@ function Home() {
   );
 }
 
-export default withAuth(Home);
+export default Home;

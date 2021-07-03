@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../../components/Loading";
-import withAuth from "../../hocs/withAuth";
-import EditCenter from "../../components/EditCenter";
+import Loading from "../../../components/Loading";
+import withAuth from "../../../hocs/withAuth";
+import EditCenter from "../../../components/EditCenter";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import {
@@ -17,21 +17,20 @@ import {
   InputBase,
   Divider,
   Button,
-  TablePagination,
   Grid,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import SearchIcon from "@material-ui/icons/Search";
-import * as FIREBASE from "../../lib/firebase";
-
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import DeleteCenter from "../../components/DeleteCenter";
+import DeleteCenter from "../../../components/DeleteCenter";
 import { useRouter } from "next/router";
-import Routes from "../../constants/routes";
-import medicalCenters from "../../services/medicalCenters";
+import Routes from "../../../constants/routes";
+import medicalCenters from "../../../services/medicalCenters";
+import useMedicalCenters from "../../../hooks/useMedicalCenters";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -110,10 +109,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MedicalCenter = () => {
+function Centers() {
   const router = useRouter();
   const classes = useStyles();
-  const [dataListCenters, setDataListCenters] = useState([]);
+  const [dataCenters] = useMedicalCenters();
   const [dataSearchCenters, setDataSearchCenters] = useState([]);
   const [wordSearch, setWordSearch] = useState("");
   const [centerInfo, setCenterInfo] = useState(null);
@@ -142,28 +141,11 @@ const MedicalCenter = () => {
     setIsDialogsVisibleEditCenter(false);
     setIsDialogsVisibleDeleteCenter(false);
   };
-  useEffect(() => {
-    const getDataListCenters = async () => {
-      await medicalCenters.getAll().on("value", (snapshot) => {
-        const listCentersData = [];
-        snapshot.forEach((data) => {
-          const centers = data.val();
-          listCentersData.push({
-            key: data.key,
-            ...centers,
-          });
-        });
-        setDataListCenters(listCentersData);
-      });
-    };
-    getDataListCenters();
-  }, []);
 
-  console.log(dataListCenters);
   useEffect(() => {
-    if (dataListCenters) {
+    if (dataCenters) {
       const listCenterData = [];
-      dataListCenters.map((center) => {
+      dataCenters.map((center) => {
         center.name.toUpperCase().includes(wordSearch.toUpperCase())
           ? listCenterData.push(center)
           : "";
@@ -230,7 +212,9 @@ const MedicalCenter = () => {
                     {dataSearchCenters.map((center) => (
                       <StyledTableRow key={center.key + "filter"}>
                         <StyledTableCell align="start">
-                          {center.name}
+                          <Link href={`/admin/centros/comments/${center.key}`}>
+                            {center.name}
+                          </Link>
                         </StyledTableCell>
                         <StyledTableCell align="center">
                           {center.sector}
@@ -266,7 +250,7 @@ const MedicalCenter = () => {
         </div>
       ) : (
         <div>
-          {dataListCenters ? (
+          {dataCenters ? (
             <div>
               <TableContainer component={Paper}>
                 <Table aria-label="customized table">
@@ -279,10 +263,12 @@ const MedicalCenter = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {dataListCenters.map((center) => (
+                    {dataCenters.map((center) => (
                       <StyledTableRow key={center.key}>
                         <StyledTableCell align="start">
-                          {center.name}
+                          <Link href={`/admin/centros/comments/${center.key}`}>
+                            {center.name}
+                          </Link>
                         </StyledTableCell>
                         <StyledTableCell align="center">
                           {center.sector}
@@ -342,5 +328,6 @@ const MedicalCenter = () => {
       </Dialog>
     </>
   );
-};
-export default withAuth(MedicalCenter);
+}
+
+export default withAuth(Centers);

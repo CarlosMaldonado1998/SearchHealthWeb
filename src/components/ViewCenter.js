@@ -1,16 +1,13 @@
 import Loading from "./Loading";
 import {
-  Button,
   Card,
   CardContent,
   CardMedia,
   Grid,
-  List,
   makeStyles,
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import Comments from "./Comments";
 
 const useStyles = makeStyles({
   root: {
@@ -21,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ViewCenter = ({ dataCenter, onCancel }) => {
+const ViewCenter = ({ dataCenter }) => {
   const classes = useStyles();
   return (
     <>
@@ -56,24 +53,6 @@ const ViewCenter = ({ dataCenter, onCancel }) => {
               </CardContent>
             </Card>
             <Typography color={"primary"}> Comentarios</Typography>
-            {dataCenter.comments ? (
-              dataCenter.comments.map((comment) => {
-                return (
-                  <List>
-                    <Comments comment={comment} key={dataCenter.key} />
-                  </List>
-                );
-              })
-            ) : (
-              <Typography>
-                Este Centro médico todavia no ha recibido commentarios
-              </Typography>
-            )}
-          </Grid>
-          <Grid container justify="center" alignItems="center">
-            <Button onClick={onCancel} variant="contained" color={"secondary"}>
-              Cerrar
-            </Button>
           </Grid>
         </Grid>
       ) : (

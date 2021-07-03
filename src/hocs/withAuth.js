@@ -6,7 +6,7 @@ import Routes from "../constants/routes";
  * If the user isn't authenticated, forward to the given URL.
  */
 
-export default function withAuth(WrappedComponent, location = Routes.LOGIN) {
+export default function withAuth(WrappedComponent, location = Routes.HOME) {
   return withAuthRedirect({
     WrappedComponent,
     location,

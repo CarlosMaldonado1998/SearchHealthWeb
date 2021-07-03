@@ -20,7 +20,7 @@ const EditCenter = (props) => {
         .addInfoCenter(key)
         .update({ ...data })
         .then(
-          enqueueSnackbar("Centro médico actualizado con éxito. 2", {
+          enqueueSnackbar("Centro médico actualizado con éxito.", {
             variant: "success",
             anchorOrigin: {
               vertical: "top",

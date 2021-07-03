@@ -42,25 +42,27 @@ const DeleteComment = (props) => {
 
   const onSubmit = async () => {
     console.log(props);
-    // try {
-    //   const response = await FIREBASE.db
-    //     .ref(`medicalCenters/${props.key}/comments/${props.comment.key}`)
-    //     .remove();
-    //   handleClick("Se ha eliminado el centro con éxito", "success");
-    //   props.onCancel();
-    //   return response;
-    // } catch (error) {
-    //   if (error.response) {
-    //     handleClick("No se pudo eliminar el comentario", "error");
-    //     console.log(error.response.data);
-    //     return Promise.reject(error.response);
-    //   } else if (error.request) {
-    //     console.log(error.request);
-    //   } else {
-    //     console.log("Error", error.message);
-    //   }
-    //   console.log(error.config);
-    // }
+    try {
+      const response = await FIREBASE.db
+        .ref(
+          `medicalCenters/${props.dataCenterID}/comments/${props.comment.key}`
+        )
+        .remove();
+      handleClick("Se ha eliminado el comentario con éxito", "success");
+      props.onCancel();
+      return response;
+    } catch (error) {
+      if (error.response) {
+        handleClick("No se pudo eliminar el comentario", "error");
+        console.log(error.response.data);
+        return Promise.reject(error.response);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    }
   };
 
   return (

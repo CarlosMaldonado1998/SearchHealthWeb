@@ -1,3 +1,6 @@
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import theme from "../styles/theme";
 import { useAuth } from "../lib/auth";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -6,6 +9,7 @@ import {
   Collapse,
   CssBaseline,
   Drawer,
+  Grid,
   List,
   ListItem,
   ListItemIcon,
@@ -18,11 +22,9 @@ import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRoun
 import FormatListBulletedRoundedIcon from "@material-ui/icons/FormatListBulletedRounded";
 import MessageRoundedIcon from "@material-ui/icons/MessageRounded";
 import GroupRoundedIcon from "@material-ui/icons/GroupRounded";
-import React, { useState } from "react";
-import { useRouter } from "next/router";
-import theme from "../styles/theme";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import { useSnackbar } from "notistack";
 
 const drawerWidth = 200;
 
@@ -61,14 +63,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function LateralMenu({ open, handleDrawerClose, handleClick, openList }) {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const router = useRouter();
   const classes = useStyles();
   const [selectedIndex, setSelectedIndex] = useState(0);
-
+  const { enqueueSnackbar } = useSnackbar();
   const HandleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
+
+  useEffect(() => {
+    if (user.role !== "Administrador") {
+      logout().then(
+        router.push(Routes.HOME),
+        enqueueSnackbar(
+          "El Ingreso ha sido negado al no ser personal Administrativo.",
+          {
+            variant: "warning",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
+          }
+        )
+      );
+    }
+  }, [user]);
 
   return (
     <>
@@ -103,7 +123,7 @@ function LateralMenu({ open, handleDrawerClose, handleClick, openList }) {
                 key={"Bienvenido"}
                 selected={selectedIndex === 0}
                 onClick={(event) => {
-                  router.push(Routes.ADMIN);
+                  router.push(Routes.ADMIN).then((r) => console.log(r));
                   HandleListItemClick(event, 0);
                 }}
               >
@@ -138,15 +158,18 @@ function LateralMenu({ open, handleDrawerClose, handleClick, openList }) {
                         style={{ color: "#7bc2ca" }}
                       />
                     </ListItemIcon>
-                    <ListItemText primary={"Agregar"} />
+                    <Grid row>
+                      <ListItemText primary={"Agregar"} />
+                      <ListItemText primary={"Centro"} />
+                    </Grid>
                   </ListItem>
                   <ListItem
                     button
                     key={"Lista"}
                     selected={selectedIndex === 2}
                     onClick={(event) => {
-                      router.push(Routes.VIEW_MEDICAL_CENTER);
                       HandleListItemClick(event, 2);
+                      router.push(Routes.VIEW_MEDICAL_CENTER);
                     }}
                   >
                     <ListItemIcon>
@@ -154,21 +177,10 @@ function LateralMenu({ open, handleDrawerClose, handleClick, openList }) {
                         style={{ color: "#7bc2ca" }}
                       />
                     </ListItemIcon>
-                    <ListItemText primary={"Visualizar"} />
-                  </ListItem>
-                  <ListItem
-                    button
-                    key={"Comentarios"}
-                    selected={selectedIndex === 3}
-                    onClick={(event) => {
-                      router.push(Routes.VIEW_COMMENTS_MEDICAL_CENTER);
-                      HandleListItemClick(event, 3);
-                    }}
-                  >
-                    <ListItemIcon>
-                      <MessageRoundedIcon style={{ color: "#7bc2ca" }} />
-                    </ListItemIcon>
-                    <ListItemText primary={"Comentarios"} />
+                    <Grid row>
+                      <ListItemText primary={"Lista de"} />
+                      <ListItemText primary={"Centros"} />
+                    </Grid>
                   </ListItem>
                 </List>
               </Collapse>
@@ -184,24 +196,14 @@ function LateralMenu({ open, handleDrawerClose, handleClick, openList }) {
                 <ListItemIcon>
                   <GroupRoundedIcon style={{ color: "#7bc2ca" }} />
                 </ListItemIcon>
-                <ListItemText primary={"Usuarios"} />
+                <Grid row>
+                  <ListItemText primary={"Lista de"} />
+                  <ListItemText primary={"Usuarios"} />
+                </Grid>
               </ListItem>
             </>
           ) : (
-            <ListItem
-              button
-              key={"Bienvenido"}
-              selected={selectedIndex === 0}
-              onClick={(event) => {
-                router.push(Routes.HOME);
-                HandleListItemClick(event, 0);
-              }}
-            >
-              <ListItemIcon>
-                <HomeRoundedIcon style={{ color: "#7bc2ca" }} />
-              </ListItemIcon>
-              <ListItemText primary={"Bienvenido"} />
-            </ListItem>
+            <></>
           )}
         </List>
       </Drawer>
