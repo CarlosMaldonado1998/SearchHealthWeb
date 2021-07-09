@@ -11,11 +11,11 @@ function Register() {
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const handleAddMedicalCenter = async (data, file) => {
-    const saveCenter = medicalCenters.saveCenter().push({
+    const saveCenter = medicalCenters.saveCenter().add({
       ...data,
     });
     await saveCenter.then((snapshot) => {
-      handleAddImageMedicalCenter(snapshot.key, file);
+      handleAddImageMedicalCenter(snapshot.id, file);
     });
   };
 
@@ -33,8 +33,7 @@ function Register() {
           .then(async function (downloadURL) {
             console.log("File available at", downloadURL);
             await medicalCenters
-              .addInfoCenter(uid)
-              .update({ photo: downloadURL })
+              .updatePhotoCenter(uid, { photo: downloadURL })
               .then(
                 enqueueSnackbar("Centro médico registrado con éxito", {
                   variant: "success",

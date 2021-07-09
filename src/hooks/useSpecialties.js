@@ -6,16 +6,12 @@ const Specialty = () => {
 
   useEffect(() => {
     const getDataSpecialties = async () => {
-      await specialties
-        .getAll()
-        .once("value")
-        .then((snapshot) => {
-          const dataList = [];
-          snapshot.forEach((data) => {
-            dataList.push({ id: data.key, name: data.val() });
-          });
-          setDataSpecialties(dataList);
-        });
+      const data = await specialties.getAll();
+      const dataList = [];
+      data.docs.forEach((item) => {
+        dataList.push({ id: item.id, ...item.data() });
+      });
+      setDataSpecialties(dataList);
     };
     getDataSpecialties();
   }, []);

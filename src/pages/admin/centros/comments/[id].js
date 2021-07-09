@@ -1,40 +1,47 @@
-import { useRouter } from "next/router";
-import medicalCenters from "../../../../services/medicalCenters";
 import React, { useEffect, useState } from "react";
 import Comments from "../../../../components/Comments";
-import { List } from "@material-ui/core";
+import { Grid, List } from "@material-ui/core";
 import useCenter from "../../../../hooks/useCenter";
 import ViewCenter from "../../../../components/ViewCenter";
+import useComments from "../../../../hooks/useComments";
 
 const Center = ({ id }) => {
-  const [dataCenter, dataComments] = useCenter(id);
+  const [dataCenter] = useCenter(id);
+  const [dataComments] = useComments(id);
 
-  console.log("datosC", dataCenter);
   return (
     <>
-      <div>
-        {dataCenter ? (
-          <ViewCenter dataCenter={dataCenter} />
-        ) : (
-          <div> No hay centro registrado con el id</div>
-        )}
-      </div>
-      <div>
-        {dataComments ? (
-          dataComments.map((comment) => {
-            return (
-              <List key={dataCenter.id}>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid>
+          {dataCenter ? (
+            <ViewCenter dataCenter={dataCenter} />
+          ) : (
+            <Grid> No hay centro registrado con el id</Grid>
+          )}
+        </Grid>
+      </Grid>
+      <Grid>
+        <Grid>
+          {dataComments ? (
+            <List key={"comments - " + dataCenter.id}>
+              {dataComments.map((comment) => (
                 <Comments comment={comment} dataCenterID={dataCenter.id} />
-              </List>
-            );
-          })
-        ) : (
-          <div> No hay comentarios en el centro médico</div>
-        )}
-      </div>
+              ))}
+            </List>
+          ) : (
+            <Grid>DAtos no encontrados </Grid>
+          )}
+        </Grid>
+      </Grid>
     </>
   );
 };
+
 export default Center;
 
 export async function getServerSideProps(context) {

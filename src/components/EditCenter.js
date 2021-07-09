@@ -8,26 +8,31 @@ import { useSnackbar } from "notistack";
 
 const EditCenter = (props) => {
   const { enqueueSnackbar } = useSnackbar();
-  const handleAddMedicalCenter = async (key, data, file, choose) => {
+  const handleClick = (message, variant) => {
+    enqueueSnackbar(message, {
+      variant: variant,
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "center",
+      },
+    });
+  };
+  const handleAddMedicalCenter = async (id, data, file, choose) => {
     if (choose) {
       console.log("deberia cambiar", file);
       await medicalCenters
-        .addInfoCenter(key)
+        .getCenterByID(id)
         .update({ ...data })
-        .then(handleAddImageMedicalCenter(key, file));
+        .then(() => {
+          handleAddImageMedicalCenter(id, file);
+        });
     } else {
       await medicalCenters
-        .addInfoCenter(key)
+        .getCenterByID(id)
         .update({ ...data })
-        .then(
-          enqueueSnackbar("Centro médico actualizado con éxito.", {
-            variant: "success",
-            anchorOrigin: {
-              vertical: "top",
-              horizontal: "center",
-            },
-          })
-        );
+        .then(() => {
+          handleClick("Centro médico actualizado con éxito", "success");
+        });
       props.onCancel();
     }
   };
@@ -46,18 +51,12 @@ const EditCenter = (props) => {
           .then(async function (downloadURL) {
             console.log("File available at", downloadURL);
             await medicalCenters
-              .addInfoCenter(uid)
+              .getCenterByID(uid)
               .update({ photo: downloadURL })
-              .then(
-                enqueueSnackbar("Centro médico actualizado con éxito", {
-                  variant: "success",
-                  anchorOrigin: {
-                    vertical: "top",
-                    horizontal: "center",
-                  },
-                }),
-                props.onCancel()
-              );
+              .then(() => {
+                handleClick("Centro médico actualizado con éxito", "success");
+                props.onCancel();
+              });
           });
       }
     );

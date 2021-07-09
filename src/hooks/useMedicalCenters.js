@@ -5,20 +5,17 @@ const Centers = () => {
   const [dataCenters, setDataCenters] = useState([]);
 
   useEffect(() => {
-    const getDataCenters = async () => {
-      await medicalCenters.getAll().on("value", (snapshot) => {
-        const listUser = [];
-        snapshot.forEach((data) => {
-          const centers = data.val();
-          listUser.push({
-            key: data.key,
-            ...centers,
-          });
+    medicalCenters.getAll().onSnapshot((querySnapshot) => {
+      const listUser = [];
+      querySnapshot.docs.forEach((item) => {
+        const centers = item.data();
+        listUser.push({
+          key: item.id,
+          ...centers,
         });
-        setDataCenters(listUser);
       });
-    };
-    getDataCenters();
+      setDataCenters(listUser);
+    });
   }, []);
 
   return [dataCenters];
