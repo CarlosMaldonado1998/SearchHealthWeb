@@ -38,21 +38,23 @@ function useAuthProvider() {
         data.email,
         data.password
       );
-      const { uid } = userAuthData.user.uid;
+      const { uid } = userAuthData.user;
 
-      // let photoURL =
-      //     "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ=";
-      // if (data.photo) {
-      //     const snapshot = await storage.ref(`users/${uid}`).put(data.photo);
-      //     photoURL = await snapshot.ref.getDownloadURL();
-      // }
+      let photoURL =
+        "https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1223671392?b=1&k=6&m=1223671392&s=612x612&w=0&h=5VMcL3a_1Ni5rRHX0LkaA25lD_0vkhFsb1iVm1HKVSQ=";
+      if (data.photo) {
+        const snapshot = await storage.ref(`users/${uid}`).put(data.photo);
+        photoURL = await snapshot.ref.getDownloadURL();
+      }
 
       const { name, email } = data;
-      await db.ref(`users/${uid}/`).set({
-        email: email,
-        name: name,
-        // photo: photoURL,
-      });
+      const userData = {
+        name,
+        email,
+        photoURL,
+        uid,
+      };
+      await db.collection("users").doc(uid).set(userData);
       return true;
     } catch (error) {
       handleUser(false);
@@ -84,21 +86,21 @@ function useAuthProvider() {
     return true;
   };
 
-  //const confirmPasswordReset
-
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (userAuthData) => {
       if (userAuthData) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         console.log("SESIÓN ACTIVA", userAuthData);
-        const userDoc = await db.ref(`users/${userAuthData.uid}/`);
-        console.log("UserData", userDoc);
-        userDoc.on("value", (snapshot) => {
-          const data = snapshot.val();
-          handleUser(data);
-        });
+        const userDoc = await db
+          .collection("users")
+          .doc(userAuthData.uid)
+          .get();
+        const userData = userDoc.data();
+        console.log("userDAta", userData);
+        handleUser(userData);
       } else {
+        // User is signed out
         console.log("SIN SESIÓN", userAuthData);
         handleUser(false);
       }

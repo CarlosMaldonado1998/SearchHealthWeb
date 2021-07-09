@@ -25,10 +25,6 @@ import clsx from "clsx";
 const moment = require("moment");
 
 import React, { useEffect, useState } from "react";
-import specialties from "../services/specialties";
-import IconButton from "@material-ui/core/IconButton";
-import { PhotoCamera } from "@material-ui/icons";
-import Image from "next/image";
 import useSpecialties from "../hooks/useSpecialties";
 
 const useStyles = makeStyles((theme) => ({
@@ -166,6 +162,7 @@ const MenuProps = {
 };
 
 const FormMedicalCenter = (props) => {
+  console.log("datos", props);
   const classes = useStyles();
   const [dataSpecialties] = useSpecialties();
   const { register, handleSubmit, control, errors } = useForm({
@@ -230,7 +227,7 @@ const FormMedicalCenter = (props) => {
         telephone: data.telephone,
         mobile: data.mobile,
       },
-      specialties: { ...selectedSpecialties },
+      specialties: [...selectedSpecialties],
       days: day,
       end_time: data.end_time,
       location: {
@@ -290,7 +287,7 @@ const FormMedicalCenter = (props) => {
     setSelectedSpecialties(event.target.value);
   };
 
-  console.log("especialties", typeof selectedSpecialties);
+  console.log("propsspecial", dataSpecialties);
   return (
     <>
       <Grid container>

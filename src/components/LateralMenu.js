@@ -158,7 +158,7 @@ function LateralMenu({ open, handleDrawerClose, handleClick, openList }) {
                         style={{ color: "#7bc2ca" }}
                       />
                     </ListItemIcon>
-                    <Grid row>
+                    <Grid>
                       <ListItemText primary={"Agregar"} />
                       <ListItemText primary={"Centro"} />
                     </Grid>
@@ -177,7 +177,7 @@ function LateralMenu({ open, handleDrawerClose, handleClick, openList }) {
                         style={{ color: "#7bc2ca" }}
                       />
                     </ListItemIcon>
-                    <Grid row>
+                    <Grid>
                       <ListItemText primary={"Lista de"} />
                       <ListItemText primary={"Centros"} />
                     </Grid>
@@ -196,7 +196,7 @@ function LateralMenu({ open, handleDrawerClose, handleClick, openList }) {
                 <ListItemIcon>
                   <GroupRoundedIcon style={{ color: "#7bc2ca" }} />
                 </ListItemIcon>
-                <Grid row>
+                <Grid>
                   <ListItemText primary={"Lista de"} />
                   <ListItemText primary={"Usuarios"} />
                 </Grid>

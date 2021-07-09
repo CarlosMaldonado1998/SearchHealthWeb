@@ -153,6 +153,7 @@ function Centers() {
       setDataSearchCenters(listCenterData);
     }
   }, [wordSearch]);
+  console.log("centors", dataCenters);
 
   return (
     <>
@@ -202,7 +203,7 @@ function Centers() {
                 <Table aria-label="customized table">
                   <TableHead>
                     <TableRow>
-                      <StyledTableCell align="start">Nombre</StyledTableCell>
+                      <StyledTableCell align="left">Nombre</StyledTableCell>
                       <StyledTableCell align="center">Sector</StyledTableCell>
                       <StyledTableCell align="center">Tipo</StyledTableCell>
                       <StyledTableCell align="center">Opción</StyledTableCell>
@@ -211,7 +212,7 @@ function Centers() {
                   <TableBody>
                     {dataSearchCenters.map((center) => (
                       <StyledTableRow key={center.key + "filter"}>
-                        <StyledTableCell align="start">
+                        <StyledTableCell align="left">
                           <Link href={`/admin/centros/comments/${center.key}`}>
                             {center.name}
                           </Link>
@@ -256,7 +257,7 @@ function Centers() {
                 <Table aria-label="customized table">
                   <TableHead>
                     <TableRow>
-                      <StyledTableCell align="start">Nombre</StyledTableCell>
+                      <StyledTableCell align="left">Nombre</StyledTableCell>
                       <StyledTableCell align="center">Sector</StyledTableCell>
                       <StyledTableCell align="center">Tipo</StyledTableCell>
                       <StyledTableCell align="center">Opción</StyledTableCell>
@@ -265,7 +266,7 @@ function Centers() {
                   <TableBody>
                     {dataCenters.map((center) => (
                       <StyledTableRow key={center.key}>
-                        <StyledTableCell align="start">
+                        <StyledTableCell align="left">
                           <Link href={`/admin/centros/comments/${center.key}`}>
                             {center.name}
                           </Link>
@@ -310,7 +311,7 @@ function Centers() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
         disableBackdropClick={true}
-        maxWidth={500}
+        maxWidth={"sm"}
       >
         <DialogContent>
           <EditCenter data={centerInfo} onCancel={handleClose} />

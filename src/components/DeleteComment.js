@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
-import * as FIREBASE from "../lib/firebase";
 import { Box, Button, Grid } from "@material-ui/core";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import medicalCenters from "../services/medicalCenters";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,19 +12,16 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "transparent",
     },
   },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
   submit: {
     margin: theme.spacing(3, 2, 2),
-    backgroundColor: theme.palette.secondary,
+    backgroundColor: theme.palette.secondary.main,
   },
   button: {
     margin: theme.spacing(3, 2, 2),
-    backgroundColor: theme.palette.cancel,
+    backgroundColor: theme.palette.cancel.main,
   },
 }));
+
 const DeleteComment = (props) => {
   const classes = useStyles();
   const { handleSubmit } = useForm();
@@ -41,13 +38,11 @@ const DeleteComment = (props) => {
   };
 
   const onSubmit = async () => {
-    console.log(props);
     try {
-      const response = await FIREBASE.db
-        .ref(
-          `medicalCenters/${props.dataCenterID}/comments/${props.comment.key}`
-        )
-        .remove();
+      const response = await medicalCenters.deleteCommentByIDCenter(
+        props.dataCenterID,
+        props.comment.id
+      );
       handleClick("Se ha eliminado el comentario con éxito", "success");
       props.onCancel();
       return response;

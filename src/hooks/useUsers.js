@@ -6,17 +6,15 @@ const Users = () => {
 
   useEffect(() => {
     const getDataListUsers = async () => {
-      await users.getAll().on("value", (snapshot) => {
-        const listUser = [];
-        snapshot.forEach((data) => {
-          const centers = data.val();
-          listUser.push({
-            key: data.key,
-            ...centers,
-          });
+      const data = await users.getAll();
+      const listUser = [];
+      data.docs.forEach((item) => {
+        listUser.push({
+          key: item.id,
+          ...item.data(),
         });
-        setDataUsers(listUser);
       });
+      setDataUsers(listUser);
     };
     getDataListUsers();
   }, []);

@@ -4,6 +4,6 @@ let Users;
 
 export default Users = {
   getAll: () => {
-    return db.ref("users/");
+    return db.collection("users").get();
   },
 };

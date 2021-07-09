@@ -4,6 +4,6 @@ let Specialty;
 
 export default Specialty = {
   getAll: () => {
-    return db.ref("specialties/");
+    return db.collection("specialties").get();
   },
 };
