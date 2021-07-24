@@ -9,7 +9,7 @@ El proyecto Search Health es una aplicación que permite a los usuarios buscar c
 
 Se encuentra almacenada en la plataforma de Firebase, para lo cual se ha creado una base de datos en Firestore Cloud, la cual tiene la siguiente estructura. 
 
-![alt text](https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/images/database.png)
+![alt text](https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/Images/database.png)
 
 ## Sistema Web 
 Para el sistema web se ha trabajado con Next.JS 
@@ -19,7 +19,8 @@ Este sistema permite al usuario Administrador realizar la gestión de la base de
 **Sprit 1 (Completado)** 
 
 - Iniciar sesión y recuperación de contraseña 
-	
+
+![alt text](https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/Images/loginWeb.png)
 
 **Sprint 2 (Completado)**
 
@@ -29,6 +30,9 @@ Este sistema permite al usuario Administrador realizar la gestión de la base de
 - Listado de usuarios 
 - Eliminación de comentarios 
 
+![alt text](https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/Images/welcomeAdmin.png)
+![alt text](https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/Images/medicalCentersWeb.png)
+
 ## Sistema móvil
 
 **Sprint 3 (Completado )**
@@ -37,21 +41,31 @@ Este sistema permite al usuario Administrador realizar la gestión de la base de
 - Registrar usuario 
 - Recuperación de contraseña 
 
+![alt text](https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/Images/loginMovil.png)
+![alt text](https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/Images/registerMovil.png)
+
 **Sprint 4 (Completado )** 
 - Visualización de centros médicos 
 - Filtración de centros médicos
 - Visualización de centro médico
 - Visualización del mapa
 
+![alt text](https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/Images/medicalCentersMovil.png)
+![alt text](https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/Images/medicalMovil.png)
+
 **Sprint 5 (Completado )** 
 - Agregar favoritos 
 - Vizualizar lista de favoritos
 - Editar lista de favoritos 
 
+![alt text](https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/Images/favorites.png)
+
 **Sprint 6 (Completado )**
 - Agregar puntuación a un centro médico
 - Agregar comentarios a centros médicos 
 - Editar comentarios realizados. 
+
+![alt text](https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/Images/comments.png)
 
 ## Pendiente 
 
