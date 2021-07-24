@@ -4,6 +4,7 @@ El proyecto Search Health es una aplicación que permite a los usuarios buscar c
 
 ## Video del avance a la fecha 26/07/2021
 
+https://www.youtube.com/watch?v=XbY1DnovyOo
 
 ## Base de datos 
 
@@ -34,6 +35,10 @@ Este sistema permite al usuario Administrador realizar la gestión de la base de
 ![alt text](https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/Images/medicalCentersWeb.png)
 
 ## Sistema móvil
+
+La aplicación móvil esta siendo desarrollada con Ionic React y se encuentra en el siguiente repositorio: 
+  
+  https://github.com/BrendaArcentales/SearchHealthMovil
 
 **Sprint 3 (Completado )**
 
