@@ -9,6 +9,7 @@ El proyecto Search Health es una aplicación que permite a los usuarios buscar c
 
 Se encuentra almacenada en la plataforma de Firebase, para lo cual se ha creado una base de datos en Firestore Cloud, la cual tiene la siguiente estructura. 
 
+![alt text](https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/images/database.png)
 
 ## Sistema Web 
 Para el sistema web se ha trabajado con Next.JS 
@@ -20,7 +21,7 @@ Este sistema permite al usuario Administrador realizar la gestión de la base de
 - Iniciar sesión y recuperación de contraseña 
 	
 
-**Sprint 2 (Completado) **
+**Sprint 2 (Completado)**
 
 - Registro de Centros médicos 
 - Listado de centro médicos
@@ -41,6 +42,7 @@ Este sistema permite al usuario Administrador realizar la gestión de la base de
 - Filtración de centros médicos
 - Visualización de centro médico
 - Visualización del mapa
+
 **Sprint 5 (Completado )** 
 - Agregar favoritos 
 - Vizualizar lista de favoritos
