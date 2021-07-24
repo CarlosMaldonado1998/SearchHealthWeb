@@ -71,7 +71,7 @@ function Home() {
             </Paper>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <Image src="maintenance.png" width={250} height={250} />
+            <img src="maintenance.png" width={300} height={300} />
           </Grid>
         </Grid>
       </div>
