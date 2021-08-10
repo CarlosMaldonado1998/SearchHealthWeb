@@ -48,7 +48,6 @@ const DeleteCenter = (props) => {
     } catch (error) {
       if (error.response) {
         handleClick("No se pudo eliminar el centro", "error");
-        console.log(error.response.data);
         return Promise.reject(error.response);
       } else if (error.request) {
         console.log(error.request);

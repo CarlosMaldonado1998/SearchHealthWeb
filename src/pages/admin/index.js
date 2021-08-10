@@ -1,7 +1,6 @@
 import withAuth from "../../hocs/withAuth";
 import Head from "next/head";
 import { Grid, Paper, Typography } from "@material-ui/core";
-import { Edit, Image } from "@material-ui/icons";
 import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRounded";
 import EditIcon from "@material-ui/icons/Edit";
 import React from "react";

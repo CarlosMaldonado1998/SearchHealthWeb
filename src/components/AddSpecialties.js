@@ -12,20 +12,17 @@ const schema = yup.object().shape({
 
 const AddSpecialties = () => {
   const [dataSpecialties] = useSpecialties();
-  const { register, handleSubmit, control, errors } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
-  console.log("dataspecialites", dataSpecialties);
 
   const onSubmit = async (data) => {
-    console.log("data", data);
     await specialties.getAll().push(data.name);
   };
 
   return (
     <>
       <div>lista de especialidades </div>
-
       <div>Agregar especialidad</div>
       <Grid container>
         <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>

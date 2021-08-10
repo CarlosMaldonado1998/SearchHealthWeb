@@ -162,7 +162,6 @@ const MenuProps = {
 };
 
 const FormMedicalCenter = (props) => {
-  console.log("datos", props);
   const classes = useStyles();
   const [dataSpecialties] = useSpecialties();
   const { register, handleSubmit, control, errors } = useForm({
@@ -287,7 +286,6 @@ const FormMedicalCenter = (props) => {
     setSelectedSpecialties(event.target.value);
   };
 
-  console.log("propsspecial", dataSpecialties);
   return (
     <>
       <Grid container>

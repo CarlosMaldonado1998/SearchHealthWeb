@@ -19,7 +19,6 @@ const EditCenter = (props) => {
   };
   const handleAddMedicalCenter = async (id, data, file, choose) => {
     if (choose) {
-      console.log("deberia cambiar", file);
       await medicalCenters
         .getCenterByID(id)
         .update({ ...data })
@@ -49,7 +48,6 @@ const EditCenter = (props) => {
         uploadTask.snapshot.ref
           .getDownloadURL()
           .then(async function (downloadURL) {
-            console.log("File available at", downloadURL);
             await medicalCenters
               .getCenterByID(uid)
               .update({ photo: downloadURL })
