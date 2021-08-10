@@ -28,6 +28,9 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
+     <Head>
+        <title>Search Health</title>
+      </Head>
       <SnackbarProvider maxSnack={3}>
         <AuthProvider>
           <ThemeProvider theme={theme}>
