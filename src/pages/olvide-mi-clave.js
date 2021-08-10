@@ -19,6 +19,7 @@ import translateMessage from "../utils/translateMessage";
 import { makeStyles } from "@material-ui/core/styles";
 import * as yup from "yup";
 import React from "react";
+import Head from "next/head";
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -84,6 +85,9 @@ function RecoverPassword() {
 
   return (
     <>
+      <Head>
+        <title>Recuperar contraseña</title>
+      </Head>
       <Container maxWidth="sm">
         <CssBaseline />
         <Grid

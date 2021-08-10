@@ -19,6 +19,7 @@ import translateMessage from "../utils/translateMessage";
 import { useAuth } from "../lib/auth";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const schema = yup.object().shape({
   email: yup
@@ -79,6 +80,9 @@ function Login() {
 
   return (
     <>
+      <Head>
+        <title>Iniciar sesión</title>
+      </Head>
       <Container maxWidth="sm">
         <CssBaseline />
         <Grid

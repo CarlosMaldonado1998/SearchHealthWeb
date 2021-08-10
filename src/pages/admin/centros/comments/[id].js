@@ -4,6 +4,7 @@ import { Grid, List } from "@material-ui/core";
 import useCenter from "../../../../hooks/useCenter";
 import ViewCenter from "../../../../components/ViewCenter";
 import useComments from "../../../../hooks/useComments";
+import Head from "next/head";
 
 const Center = ({ id }) => {
   const [dataCenter] = useCenter(id);
@@ -11,6 +12,9 @@ const Center = ({ id }) => {
 
   return (
     <>
+      <Head>
+        <title>Comentarios</title>
+      </Head>
       <Grid
         container
         direction="row"
