@@ -30,6 +30,7 @@ import DeleteCenter from "../../../components/DeleteCenter";
 import { useRouter } from "next/router";
 import Routes from "../../../constants/routes";
 import useMedicalCenters from "../../../hooks/useMedicalCenters";
+import Head from "next/head";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -119,6 +120,10 @@ function Centers() {
 
   return (
     <>
+      <Head>
+        <title>Centros</title>
+      </Head>
+
       <Grid container direction="row" justify="center" alignItems="center">
         <h2>Gestión de centros</h2>
       </Grid>
