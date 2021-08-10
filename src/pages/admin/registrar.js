@@ -31,7 +31,6 @@ function Register() {
         uploadTask.snapshot.ref
           .getDownloadURL()
           .then(async function (downloadURL) {
-            console.log("File available at", downloadURL);
             await medicalCenters
               .updatePhotoCenter(uid, { photo: downloadURL })
               .then(

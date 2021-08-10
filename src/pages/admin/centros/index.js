@@ -29,7 +29,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DeleteCenter from "../../../components/DeleteCenter";
 import { useRouter } from "next/router";
 import Routes from "../../../constants/routes";
-import medicalCenters from "../../../services/medicalCenters";
 import useMedicalCenters from "../../../hooks/useMedicalCenters";
 
 const StyledTableCell = withStyles((theme) => ({
@@ -51,45 +50,9 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const useStyles = makeStyles((theme) => ({
-  table: {
-    minWidth: 600,
-  },
   margin: {
     backgroundColor: "rgba(255,255,255,0.8)",
   },
-  paper: {
-    height: 140,
-    width: 100,
-  },
-  control: {
-    padding: theme.spacing(2),
-  },
-  root2: {
-    minWidth: 275,
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 2, 2),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  button: {
-    margin: theme.spacing(3, 2, 2),
-  },
-
   root3: {
     padding: "2px 4px",
     display: "flex",
@@ -153,7 +116,6 @@ function Centers() {
       setDataSearchCenters(listCenterData);
     }
   }, [wordSearch]);
-  console.log("centors", dataCenters);
 
   return (
     <>

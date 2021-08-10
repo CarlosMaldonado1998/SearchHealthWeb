@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Comments from "../../../../components/Comments";
 import { Grid, List } from "@material-ui/core";
 import useCenter from "../../../../hooks/useCenter";

@@ -20,7 +20,6 @@ import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRounded";
 import FormatListBulletedRoundedIcon from "@material-ui/icons/FormatListBulletedRounded";
-import MessageRoundedIcon from "@material-ui/icons/MessageRounded";
 import GroupRoundedIcon from "@material-ui/icons/GroupRounded";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";

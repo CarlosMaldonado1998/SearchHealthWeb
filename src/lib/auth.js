@@ -32,7 +32,6 @@ function useAuthProvider() {
   };
 
   async function register(data) {
-    console.log("data", data);
     try {
       const userAuthData = await auth.createUserWithEmailAndPassword(
         data.email,
@@ -91,17 +90,14 @@ function useAuthProvider() {
       if (userAuthData) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        console.log("SESIÓN ACTIVA", userAuthData);
         const userDoc = await db
           .collection("users")
           .doc(userAuthData.uid)
           .get();
         const userData = userDoc.data();
-        console.log("userDAta", userData);
         handleUser(userData);
       } else {
         // User is signed out
-        console.log("SIN SESIÓN", userAuthData);
         handleUser(false);
       }
     });

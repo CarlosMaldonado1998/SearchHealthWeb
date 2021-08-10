@@ -3,7 +3,6 @@ import {
   Container,
   CssBaseline,
   Grid,
-  Link as MuiLink,
   Paper,
   TextField,
   Typography,
@@ -58,7 +57,6 @@ function RecoverPassword() {
     resolver: yupResolver(schema),
   });
   const onSendEmail = async (data) => {
-    console.log("datos", data);
     try {
       await sendPasswordResetEmail(data.email);
       enqueueSnackbar(

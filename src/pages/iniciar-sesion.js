@@ -54,7 +54,7 @@ const styles = {
 };
 
 function Login() {
-  const { login, user } = useAuth();
+  const { login } = useAuth();
   const classes = useStyles();
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();

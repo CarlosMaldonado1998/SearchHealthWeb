@@ -7,13 +7,10 @@ import {
   ListItemIcon,
   ListItemText,
   makeStyles,
-  Typography,
 } from "@material-ui/core";
-import InboxIcon from "@material-ui/icons/Inbox";
 import BusinessIcon from "@material-ui/icons/Business";
 import React, { useState } from "react";
 import DialogContent from "@material-ui/core/DialogContent";
-import EditCenter from "./EditCenter";
 import Dialog from "@material-ui/core/Dialog";
 import ViewCenter from "./ViewCenter";
 const useStyles = makeStyles((theme) => ({
