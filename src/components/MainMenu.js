@@ -114,7 +114,7 @@ function MainMenu() {
           <Box className={classes.logo}>
             <Link href={Routes.HOME} passHref>
               <MuiLink>
-                <img src="/logo.png" alt="Search health" width={110} />
+                <img src="/Captura.png" alt="Search health" width={260} />
               </MuiLink>
             </Link>
           </Box>
