@@ -111,7 +111,7 @@ function MainMenu() {
             <div />
           )}
 
-          <Box className={classes.logo}>
+          <Box >
             <Link href={Routes.HOME} passHref>
               <MuiLink>
                 <img src="/Captura.png" alt="Search health" width={260} />
