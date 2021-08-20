@@ -114,7 +114,7 @@ function MainMenu() {
           <Box >
             <Link href={Routes.HOME} passHref>
               <MuiLink>
-                <img src="/Captura.png" alt="Search health" width={260} />
+                <img src="/captura.png" alt="Search health" width={260} />
               </MuiLink>
             </Link>
           </Box>
