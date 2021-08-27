@@ -38,7 +38,7 @@ La base se encuentra almacenada en la plataforma de Cloud Firestore de Firabase 
 
 Se ha utilizado Scrum ya que nos permite realizar tareas de manera ágil teniendo como finalidad la entrega de valor en periodos cortos de tiempo. A continuación se muestran los sprints desarrollados en el proyecto Search Health. 
 
-*Sprit 1*
+*Sprint 1*
 
 - Iniciar sesión y recuperación de contraseña 
 
