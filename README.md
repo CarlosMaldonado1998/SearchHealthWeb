@@ -5,7 +5,8 @@ El proyecto Search Health es una aplicación que permite a los usuarios buscar c
 
 **Video demostrativo:**
 
-https://www.youtube.com/watch?v=XbY1DnovyOo
+Sistema web:https://www.youtube.com/watch?v=XbY1DnovyOo
+Aplicación móvil:https://youtu.be/llziqifWJJg
 
 **Realizado por:**
 
