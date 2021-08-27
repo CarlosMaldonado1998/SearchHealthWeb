@@ -87,6 +87,10 @@ Se ha utilizado Scrum ya que nos permite realizar tareas de manera ágil teniend
 La aplicación web se encuentra en producción a la que podemos acceder mediante el siguiente enlace:
 [Search Health](https://search-health-web.vercel.app/)
 
+El repositorio de la aplicación móvil es el siguiente:
+
+https://github.com/BrendaArcentales/SearchHealthMovil
+
 #### *Sistema web*
 
 **Administración de centros**
