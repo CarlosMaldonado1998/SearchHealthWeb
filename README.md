@@ -155,5 +155,41 @@ El sección de perfil de usuario, se encuentra la información de la cuenta como
 <img src="https://raw.githubusercontent.com/CarlosMaldonado1998/SearchHealthWeb/develop/Images/guia4.png" width="300">
 
 
+## 5. Instalación
+
+**1. Clonar el repositorio**
+
+```bash
+  git clone https://github.com/CarlosMaldonado1998/SearchHealthWeb.git
+  cd SearchHealthWeb
+```
+**2. Instalar dependencias**
+
+```bash
+  npm install
+```
+
+**3. Configurar variables de entorno**
+
+Crear un archivo .env en el directorio principal similar el archivo de ejemplo .env.example. En este se debe proporcionar las credenciales otorgadas por Firebase. 
+
+```bash
+NEXT_PUBLIC_FIREBASE_API_KEY=""
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=""
+NEXT_PUBLIC_FIREBASE_DATABASE_URL=""
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=""
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=""
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=""
+NEXT_PUBLIC_FIREBASE_APP_ID=""
+
+```
+
+**4. Levantar el servidor local**
+
+Una vez asiganadas las variables de entorno se puede ejecutar el servidor local. 
+
+```bash
+  next dev
+```
 
 
