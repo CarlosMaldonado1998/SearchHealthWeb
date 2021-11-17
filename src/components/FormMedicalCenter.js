@@ -89,7 +89,7 @@ const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const latitudeOrLongitude = /[+-](\-?\d+(\.\d+))/;
 const schema = yup.object().shape({
-  name: yup.string().required("Ingrese el nombre del Centro Médico"),
+  name: yup.string().min(4, "Ingrese el nombre del Centro Médico, el cual debe constar con más de 4 letras.").required("Ingrese el nombre del Centro Médico"),
   telephone: yup
     .string()
     .required("Ingrese el número de teléfono")
@@ -122,10 +122,10 @@ const schema = yup.object().shape({
     .string()
     .email("Ingresa un correo válido")
     .required("Ingresa tu correo electrónico"),
-  website: yup.string().url("Ingrese una dirección URL válida."),
-  facebook: yup.string().url("Ingrese una dirección URL válida."),
-  instagram: yup.string().url("Ingrese una dirección URL válida."),
-  address: yup.string().required("Ingrese la dirección del centro médico"),
+  website: yup.string().url("Ingrese una dirección URL válida. Ej. https://www.google.com"),
+  facebook: yup.string().url("Ingrese una dirección URL válida. Ej. https://www.google.com"),
+  instagram: yup.string().url("Ingrese una dirección URL válida. Ej. https://www.google.com"),
+  address: yup.string().min(6, "Ingrese la dirección del centro médico, la cual debe contar con más de 6 letras").required("Ingrese la dirección del centro médico"),
   latitude: yup
     .string()
     .required("Ingrese la posición de latitud.")
