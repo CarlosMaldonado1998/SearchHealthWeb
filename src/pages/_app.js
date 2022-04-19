@@ -8,6 +8,7 @@ import NProgress from "nprogress";
 import Router from "next/router";
 import styles from "../styles/App.module.css";
 import MainMenu from "../components/MainMenu";
+import Routes from "../constants/routes";
 
 // Show a loading state
 Router.events.on("routeChangeStart", (url) => {
@@ -41,7 +42,7 @@ function MyApp({ Component, pageProps }) {
               </Container>
               <footer className={styles.footer}>
                 <a
-                  href="https://google.com"
+                  href={Routes.HOME}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
