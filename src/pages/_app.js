@@ -43,7 +43,6 @@ function MyApp({ Component, pageProps }) {
               <footer className={styles.footer}>
                 <a
                   href={Routes.HOME}
-                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   Search Health <img src="/logo.png" className={styles.logo} />
