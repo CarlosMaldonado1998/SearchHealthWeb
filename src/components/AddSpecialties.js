@@ -12,7 +12,11 @@ const schema = yup.object().shape({
 
 const AddSpecialties = () => {
   const [dataSpecialties] = useSpecialties();
-  const { register, handleSubmit, errors } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -33,7 +37,7 @@ const AddSpecialties = () => {
               label="Nombre del centro médico"
               variant="outlined"
               required
-              inputRef={register}
+              {...register("name")}
               color="secondary"
               margin="normal"
               error={!!errors.name}
