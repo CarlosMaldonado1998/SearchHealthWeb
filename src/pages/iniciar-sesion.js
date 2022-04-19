@@ -59,7 +59,11 @@ function Login() {
   const classes = useStyles();
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
-  const { register, handleSubmit, errors } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -111,7 +115,7 @@ function Login() {
                   id="email"
                   name="email"
                   label="Correo electrónico"
-                  inputRef={register}
+                  {...register("email")}
                   margin="normal"
                   required
                   fullWidth
@@ -123,7 +127,7 @@ function Login() {
                 />
                 <TextField
                   margin="normal"
-                  inputRef={register}
+                  {...register("password")}
                   required
                   fullWidth
                   name="password"

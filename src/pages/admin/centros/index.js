@@ -148,7 +148,7 @@ function Centers() {
               value={wordSearch}
               className={classes.input}
               placeholder="Ingrese el nombre del centro"
-              inputRef={register}
+              {...register("wordToSearch")}
               onChange={handleChange}
             />
             <IconButton

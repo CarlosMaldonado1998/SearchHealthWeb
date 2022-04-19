@@ -111,7 +111,7 @@ function MainMenu() {
             <div />
           )}
 
-          <Box >
+          <Box>
             <Link href={Routes.HOME} passHref>
               <MuiLink>
                 <img src="/captura.png" alt="Search health" width={260} />
@@ -119,7 +119,7 @@ function MainMenu() {
             </Link>
           </Box>
 
-          <div className={classes.grow} />
+          
 
           <div className={classes.grow} />
           {user ? (

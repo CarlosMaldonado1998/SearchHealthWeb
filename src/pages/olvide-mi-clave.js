@@ -54,7 +54,11 @@ function RecoverPassword() {
   const { sendPasswordResetEmail } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
-  const { register, handleSubmit, errors } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
   });
   const onSendEmail = async (data) => {
@@ -118,7 +122,7 @@ function RecoverPassword() {
                   id="email"
                   name="email"
                   label="Correo electrónico"
-                  inputRef={register}
+                  {...register("email")}
                   margin="normal"
                   required
                   fullWidth

@@ -164,7 +164,12 @@ const MenuProps = {
 const FormMedicalCenter = (props) => {
   const classes = useStyles();
   const [dataSpecialties] = useSpecialties();
-  const { register, handleSubmit, control, errors } = useForm({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
   });
   const [state, setState] = useState({
@@ -303,7 +308,7 @@ const FormMedicalCenter = (props) => {
               defaultValue={props.data ? props.data.name : ""}
               variant="outlined"
               required
-              inputRef={register}
+              {...register("name")}
               color="secondary"
               margin="normal"
               error={!!errors.name}
@@ -323,19 +328,19 @@ const FormMedicalCenter = (props) => {
                     value="Hospital"
                     control={<StyledRadio />}
                     label="Hospital"
-                    inputRef={register}
+                    {...register("type")}
                   />
                   <FormControlLabel
                     value="Clínica"
                     control={<StyledRadio />}
                     label="Clínica"
-                    inputRef={register}
+                    {...register("type")}
                   />
                   <FormControlLabel
                     value="Centro de Salud"
                     control={<StyledRadio />}
                     label="Centro de Salud"
-                    inputRef={register}
+                    {...register("type")}
                   />
                 </Box>
               </RadioGroup>
@@ -358,7 +363,7 @@ const FormMedicalCenter = (props) => {
                     type="time"
                     defaultValue={props.data ? props.data.start_time : "07:00"}
                     required
-                    inputRef={register}
+                    {...register("start_time")}
                     color="secondary"
                     margin="normal"
                     error={!!errors.start_time}
@@ -380,7 +385,7 @@ const FormMedicalCenter = (props) => {
                     type="time"
                     defaultValue={props.data ? props.data.end_time : "16:00"}
                     required
-                    inputRef={register}
+                    {...register("end_time")}
                     color="secondary"
                     margin="normal"
                     error={!!errors.end_time}
@@ -489,19 +494,19 @@ const FormMedicalCenter = (props) => {
                     value="Norte"
                     control={<StyledRadio />}
                     label="Norte"
-                    inputRef={register}
+                    {...register("sector")}
                   />
                   <FormControlLabel
                     value="Centro"
                     control={<StyledRadio />}
                     label="Centro"
-                    inputRef={register}
+                    {...register("sector")}
                   />
                   <FormControlLabel
                     value="Sur"
                     control={<StyledRadio />}
                     label="Sur"
-                    inputRef={register}
+                    {...register("sector")}
                   />
                 </Box>
               </RadioGroup>
@@ -516,7 +521,7 @@ const FormMedicalCenter = (props) => {
               variant="outlined"
               required
               defaultValue={props.data ? props.data.contacts.telephone : ""}
-              inputRef={register}
+              {...register("telephone")}
               color="secondary"
               margin="normal"
               error={!!errors.telephone}
@@ -531,7 +536,7 @@ const FormMedicalCenter = (props) => {
               label="Número de teléfono celular"
               variant="outlined"
               defaultValue={props.data ? props.data.contacts.mobile : ""}
-              inputRef={register}
+              {...register("mobile")}
               color="secondary"
               margin="normal"
               error={!!errors.mobile}
@@ -549,7 +554,7 @@ const FormMedicalCenter = (props) => {
                   variant="outlined"
                   required
                   defaultValue={props.data ? props.data.location.address : ""}
-                  inputRef={register}
+                  {...register("address")}
                   color="secondary"
                   margin="normal"
                   error={!!errors.address}
@@ -564,7 +569,7 @@ const FormMedicalCenter = (props) => {
                   variant="outlined"
                   required
                   defaultValue={props.data ? props.data.location.latitude : ""}
-                  inputRef={register}
+                  {...register("latitude")}
                   color="secondary"
                   margin="normal"
                   error={!!errors.latitude}
@@ -579,7 +584,7 @@ const FormMedicalCenter = (props) => {
                   variant="outlined"
                   required
                   defaultValue={props.data ? props.data.location.longitude : ""}
-                  inputRef={register}
+                  {...register("longitude")}
                   color="secondary"
                   margin="normal"
                   error={!!errors.longitude}
@@ -599,7 +604,7 @@ const FormMedicalCenter = (props) => {
                 variant="outlined"
                 required
                 defaultValue={props.data ? props.data.email : ""}
-                inputRef={register}
+                {...register("email")}
                 color="secondary"
                 margin="normal"
                 error={!!errors.email}
@@ -612,7 +617,7 @@ const FormMedicalCenter = (props) => {
                 name="website"
                 label="Sitio web (Opcional)"
                 variant="outlined"
-                inputRef={register}
+                {...register("website")}
                 defaultValue={props.data ? props.data.social_media.website : ""}
                 color="secondary"
                 margin="normal"
@@ -629,7 +634,7 @@ const FormMedicalCenter = (props) => {
                 defaultValue={
                   props.data ? props.data.social_media.facebook : ""
                 }
-                inputRef={register}
+                {...register("facebook")}
                 color="secondary"
                 margin="normal"
                 error={!!errors.facebook}
@@ -642,7 +647,7 @@ const FormMedicalCenter = (props) => {
                 name="instagram"
                 label="Instagram (Opcional)"
                 variant="outlined"
-                inputRef={register}
+                {...register("instagram")}
                 defaultValue={
                   props.data ? props.data.social_media.instagram : ""
                 }
